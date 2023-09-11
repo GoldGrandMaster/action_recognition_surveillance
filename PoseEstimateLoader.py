@@ -26,14 +26,14 @@ class SPPE_FastPose(object):
             self.model = InferenNet_fastRes50().to(device)
         self.model.eval()
 
-    # def predict(self, image, bboxs, bboxs_scores, ignore=0.005):
-    #     inps, pt1, pt2 = crop_dets(image, bboxs, self.inp_h, self.inp_w, ignore=ignore)
-    #     pose_hm = self.model(inps.to(self.device)).cpu().data
+    def predict(self, image, bboxs, bboxs_scores, ignore=0.005):
+        inps, pt1, pt2 = crop_dets(image, bboxs, self.inp_h, self.inp_w, ignore=ignore)
+        pose_hm = self.model(inps.to(self.device)).cpu().data
 
-    #     # Cut eyes and ears.
-    #     pose_hm = torch.cat([pose_hm[:, :1, ...], pose_hm[:, 5:, ...]], dim=1)  # 删除掉[1,2,3,4]左眼、右眼、左耳、右耳共4个点 @yjy
+        # Cut eyes and ears.
+        pose_hm = torch.cat([pose_hm[:, :1, ...], pose_hm[:, 5:, ...]], dim=1)  # 删除掉[1,2,3,4]左眼、右眼、左耳、右耳共4个点 @yjy
 
-    #     xy_hm, xy_img, scores = getPrediction(pose_hm, pt1, pt2, self.inp_h, self.inp_w,
-    #                                           pose_hm.shape[-2], pose_hm.shape[-1])
-    #     result = pose_nms(bboxs, bboxs_scores, xy_img, scores)
-    #     return result
+        xy_hm, xy_img, scores = getPrediction(pose_hm, pt1, pt2, self.inp_h, self.inp_w,
+                                              pose_hm.shape[-2], pose_hm.shape[-1])
+        result = pose_nms(bboxs, bboxs_scores, xy_img, scores)
+        return result
