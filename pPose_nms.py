@@ -124,36 +124,36 @@ def pose_nms(bboxes, bbox_scores, pose_preds, pose_scores):
     return final_result
 
 
-def filter_result(args):
-    score_pick, merge_id, pred_pick, pick, bbox_score_pick = args
-    global ori_pose_preds, ori_pose_scores, ref_dists
-    ids = np.arange(17)
-    max_score = torch.max(score_pick[ids, 0])
+# def filter_result(args):
+#     score_pick, merge_id, pred_pick, pick, bbox_score_pick = args
+#     global ori_pose_preds, ori_pose_scores, ref_dists
+#     ids = np.arange(17)
+#     max_score = torch.max(score_pick[ids, 0])
 
-    if max_score < scoreThreds:
-        return None
+#     if max_score < scoreThreds:
+#         return None
 
-    # Merge poses
-    merge_pose, merge_score = p_merge_fast(
-        pred_pick, ori_pose_preds[merge_id], ori_pose_scores[merge_id], ref_dists[pick])
+#     # Merge poses
+#     merge_pose, merge_score = p_merge_fast(
+#         pred_pick, ori_pose_preds[merge_id], ori_pose_scores[merge_id], ref_dists[pick])
 
-    max_score = torch.max(merge_score[ids])
-    if max_score < scoreThreds:
-        return None
+#     max_score = torch.max(merge_score[ids])
+#     if max_score < scoreThreds:
+#         return None
 
-    xmax = max(merge_pose[:, 0])
-    xmin = min(merge_pose[:, 0])
-    ymax = max(merge_pose[:, 1])
-    ymin = min(merge_pose[:, 1])
+#     xmax = max(merge_pose[:, 0])
+#     xmin = min(merge_pose[:, 0])
+#     ymax = max(merge_pose[:, 1])
+#     ymin = min(merge_pose[:, 1])
 
-    if 1.5 ** 2 * (xmax - xmin) * (ymax - ymin) < 40 * 40.5:
-        return None
+#     if 1.5 ** 2 * (xmax - xmin) * (ymax - ymin) < 40 * 40.5:
+#         return None
 
-    return {
-        'keypoints': merge_pose - 0.3,
-        'kp_score': merge_score,
-        'proposal_score': torch.mean(merge_score) + bbox_score_pick + 1.25 * max(merge_score)
-    }
+#     return {
+#         'keypoints': merge_pose - 0.3,
+#         'kp_score': merge_score,
+#         'proposal_score': torch.mean(merge_score) + bbox_score_pick + 1.25 * max(merge_score)
+#     }
 
 
 def p_merge(ref_pose, cluster_preds, cluster_scores, ref_dist):
