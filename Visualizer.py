@@ -59,20 +59,20 @@ def plot_x(x, title='', fig_size=(12, 10)):
     return fig
 
 
-# def plot_bars(x, y, title='', ylim=None, save=None):
-#     fig = plt.figure()
-#     bars = plt.bar(x, y)
-#     plt.ylim(ylim)
-#     plt.title(title)
-#     for b in bars:
-#         plt.annotate('{:.2f}'.format(b.get_height()),
-#                      xy=(b.get_x(), b.get_height()))
+def plot_bars(x, y, title='', ylim=None, save=None):
+    fig = plt.figure()
+    bars = plt.bar(x, y)
+    plt.ylim(ylim)
+    plt.title(title)
+    for b in bars:
+        plt.annotate('{:.2f}'.format(b.get_height()),
+                     xy=(b.get_x(), b.get_height()))
 
-#     if save is not None:
-#         plt.savefig(save)
-#         plt.close()
-#     else:
-#         return fig
+    if save is not None:
+        plt.savefig(save)
+        plt.close()
+    else:
+        return fig
 
 
 def plot_graphs(x_list, legends, title, ylabel, xlabel='epoch', xlim=None, save=None):
