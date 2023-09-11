@@ -24,12 +24,12 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 
 
-# def get_monitor_from_coord(x, y):  # multiple monitor dealing.
-#     monitors = screeninfo.get_monitors()
-#     for m in reversed(monitors):
-#         if m.x <= x <= m.width + m.x and m.y <= y <= m.height + m.y:
-#             return m
-#     return monitors[0]
+def get_monitor_from_coord(x, y):  # multiple monitor dealing.
+    monitors = screeninfo.get_monitors()
+    for m in reversed(monitors):
+        if m.x <= x <= m.width + m.x and m.y <= y <= m.height + m.y:
+            return m
+    return monitors[0]
 
 
 class Models:
