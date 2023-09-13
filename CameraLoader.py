@@ -76,13 +76,13 @@ class CamLoader:
         else:
             return frame
 
-    # def stop(self):
-    #     if self.stopped:
-    #         return
-    #     self.stopped = True
-    #     if self.t.is_alive():
-    #         self.t.join()
-    #     #self.stream.release()
+    def stop(self):
+        if self.stopped:
+            return
+        self.stopped = True
+        if self.t.is_alive():
+            self.t.join()
+        #self.stream.release()
 
     def __del__(self):
         if self.stream.isOpened():
