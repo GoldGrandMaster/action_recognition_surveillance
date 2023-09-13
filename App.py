@@ -33,15 +33,15 @@ def get_monitor_from_coord(x, y):  # multiple monitor dealing.
 
 
 class Models:
-    def __init__(self):
-        self.inp_dets = 416
-        self.inp_pose = (256, 192)
-        self.pose_backbone = 'resnet50'
-        self.show_detected = True
-        self.show_skeleton = True
-        self.device = 'cuda'
+    # def __init__(self):
+    #     self.inp_dets = 416
+    #     self.inp_pose = (256, 192)
+    #     self.pose_backbone = 'resnet50'
+    #     self.show_detected = True
+    #     self.show_skeleton = True
+    #     self.device = 'cuda'
 
-        self.load_models()
+    #     self.load_models()
 
     def load_models(self):
         self.detect_model = TinyYOLOv3_onecls(self.inp_dets, device=self.device)
