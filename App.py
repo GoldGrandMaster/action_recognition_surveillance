@@ -138,19 +138,19 @@ class main:
         self.load_cam(0)
         self.update()
 
-    def preproc(self, image):
-        image = self.resize_fn(image)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        return image
+    # def preproc(self, image):
+    #     image = self.resize_fn(image)
+    #     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    #     return image
 
     def load_cam(self, source):
         if self.cam:
             self.cam.__del__()
 
-        if type(source) is str and os.path.isfile(source):
-            self.cam = CamLoader_Q(source, queue_size=1000, preprocess=self.preproc).start()
-        else:
-            self.cam = CamLoader(source, preprocess=self.preproc).start()
+    #     if type(source) is str and os.path.isfile(source):
+    #         self.cam = CamLoader_Q(source, queue_size=1000, preprocess=self.preproc).start()
+    #     else:
+    #         self.cam = CamLoader(source, preprocess=self.preproc).start()
 
     def actions_graph(self):
         if len(self.models.tracker.tracks) == 0:
