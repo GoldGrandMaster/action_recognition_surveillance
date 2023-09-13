@@ -50,9 +50,9 @@ class Models:
         self.tracker = Tracker(30, n_init=3)
         self.action_model = TSSTG(device=self.device)
 
-    # def kpt2bbox(self, kpt, ex=20):
-    #     return np.array((kpt[:, 0].min() - ex, kpt[:, 1].min() - ex,
-    #                      kpt[:, 0].max() + ex, kpt[:, 1].max() + ex))
+    def kpt2bbox(self, kpt, ex=20):
+        return np.array((kpt[:, 0].min() - ex, kpt[:, 1].min() - ex,
+                         kpt[:, 0].max() + ex, kpt[:, 1].max() + ex))
 
     def process_frame(self, frame):
         detected = self.detect_model.detect(frame, need_resize=False, expand_bb=10)
