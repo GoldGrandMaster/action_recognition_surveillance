@@ -33,11 +33,11 @@ class CamLoader:
 
         self.preprocess_fn = preprocess
 
-    # def start(self):
-    #     self.t = Thread(target=self.update, args=())  # , daemon=True)
-    #     self.t.start()
-    #     # time.sleep(0.5)  # @yjy
-    #     return self
+    def start(self):
+        self.t = Thread(target=self.update, args=())  # , daemon=True)
+        self.t.start()
+        # time.sleep(0.5)  # @yjy
+        return self
 
     def update(self):
         while not self.stopped:
@@ -76,13 +76,13 @@ class CamLoader:
         else:
             return frame
 
-    def stop(self):
-        if self.stopped:
-            return
-        self.stopped = True
-        if self.t.is_alive():
-            self.t.join()
-        #self.stream.release()
+    # def stop(self):
+    #     if self.stopped:
+    #         return
+    #     self.stopped = True
+    #     if self.t.is_alive():
+    #         self.t.join()
+    #     #self.stream.release()
 
     def __del__(self):
         if self.stream.isOpened():
