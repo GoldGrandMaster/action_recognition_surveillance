@@ -33,15 +33,15 @@ def get_monitor_from_coord(x, y):  # multiple monitor dealing.
 
 
 class Models:
-    # def __init__(self):
-    #     self.inp_dets = 416
-    #     self.inp_pose = (256, 192)
-    #     self.pose_backbone = 'resnet50'
-    #     self.show_detected = True
-    #     self.show_skeleton = True
-    #     self.device = 'cuda'
+    def __init__(self):
+        self.inp_dets = 416
+        self.inp_pose = (256, 192)
+        self.pose_backbone = 'resnet50'
+        self.show_detected = True
+        self.show_skeleton = True
+        self.device = 'cuda'
 
-    #     self.load_models()
+        self.load_models()
 
     def load_models(self):
         self.detect_model = TinyYOLOv3_onecls(self.inp_dets, device=self.device)
@@ -50,9 +50,9 @@ class Models:
         self.tracker = Tracker(30, n_init=3)
         self.action_model = TSSTG(device=self.device)
 
-    def kpt2bbox(self, kpt, ex=20):
-        return np.array((kpt[:, 0].min() - ex, kpt[:, 1].min() - ex,
-                         kpt[:, 0].max() + ex, kpt[:, 1].max() + ex))
+    # def kpt2bbox(self, kpt, ex=20):
+    #     return np.array((kpt[:, 0].min() - ex, kpt[:, 1].min() - ex,
+    #                      kpt[:, 0].max() + ex, kpt[:, 1].max() + ex))
 
     def process_frame(self, frame):
         detected = self.detect_model.detect(frame, need_resize=False, expand_bb=10)
