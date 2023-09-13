@@ -33,11 +33,11 @@ class CamLoader:
 
         self.preprocess_fn = preprocess
 
-    def start(self):
-        self.t = Thread(target=self.update, args=())  # , daemon=True)
-        self.t.start()
-        # time.sleep(0.5)  # @yjy
-        return self
+    # def start(self):
+    #     self.t = Thread(target=self.update, args=())  # , daemon=True)
+    #     self.t.start()
+    #     # time.sleep(0.5)  # @yjy
+    #     return self
 
     def update(self):
         while not self.stopped:

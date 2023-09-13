@@ -178,12 +178,12 @@ class main:
 
         self._cam = self.master.after(self.delay, self.update)
 
-    # def _on_closing(self):
-    #     self.master.after_cancel(self._cam)
-    #     if self.cam:
-    #         self.cam.stop()
-    #         self.cam.__del__()
-    #     self.master.destroy()
+    def _on_closing(self):
+        self.master.after_cancel(self._cam)
+        if self.cam:
+            self.cam.stop()
+            self.cam.__del__()
+        self.master.destroy()
 
 
 root = tk.Tk()
