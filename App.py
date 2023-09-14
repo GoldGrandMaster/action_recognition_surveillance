@@ -114,13 +114,13 @@ class main:
         self.master.protocol('WM_DELETE_WINDOW', self._on_closing)
         self.main_screen = get_monitor_from_coord(master.winfo_x(), master.winfo_y())
 
-        # self.width = int(self.main_screen.width * .85)
-        # self.height = int(self.main_screen.height * .85)
-        # self.master.geometry('{}x{}'.format(self.width, self.height + 15))
+        self.width = int(self.main_screen.width * .85)
+        self.height = int(self.main_screen.height * .85)
+        self.master.geometry('{}x{}'.format(self.width, self.height + 15))
 
-        # self.cam = None
-        # self.canvas = tk.Canvas(master, width=int(self.width * .65), height=self.height)
-        # self.canvas.grid(row=0, column=0, padx=5, pady=5, sticky=tk.NSEW)
+        self.cam = None
+        self.canvas = tk.Canvas(master, width=int(self.width * .65), height=self.height)
+        self.canvas.grid(row=0, column=0, padx=5, pady=5, sticky=tk.NSEW)
 
         fig = plt.Figure(figsize=(6, 8), dpi=100)
         fig.suptitle('Actions')
