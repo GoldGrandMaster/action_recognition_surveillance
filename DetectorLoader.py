@@ -59,17 +59,17 @@ class TinyYOLOv3_onecls(object):
         image = self.transf_fn(image)[None, ...]
         scf = torch.min(self.input_size / torch.FloatTensor([image_size]), 1)[0]
 
-        detected = self.model(image.to(self.device))
-        detected = non_max_suppression(detected, self.conf_thres, self.nms)[0]
-        if detected is not None:
-            detected[:, [0, 2]] -= (self.input_size - scf * image_size[1]) / 2
-            detected[:, [1, 3]] -= (self.input_size - scf * image_size[0]) / 2
-            detected[:, 0:4] /= scf
+        # detected = self.model(image.to(self.device))
+        # detected = non_max_suppression(detected, self.conf_thres, self.nms)[0]
+        # if detected is not None:
+        #     detected[:, [0, 2]] -= (self.input_size - scf * image_size[1]) / 2
+        #     detected[:, [1, 3]] -= (self.input_size - scf * image_size[0]) / 2
+        #     detected[:, 0:4] /= scf
 
-            detected[:, 0:2] = np.maximum(0, detected[:, 0:2] - expand_bb)
-            detected[:, 2:4] = np.minimum(image_size[::-1], detected[:, 2:4] + expand_bb)
+        #     detected[:, 0:2] = np.maximum(0, detected[:, 0:2] - expand_bb)
+        #     detected[:, 2:4] = np.minimum(image_size[::-1], detected[:, 2:4] + expand_bb)
 
-        return detected
+        # return detected
 
 
 class ThreadDetection(object):
