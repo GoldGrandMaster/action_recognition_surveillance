@@ -66,21 +66,21 @@ def min_cost_matching(distance_metric, max_distance, tracks, detections,
     indices = linear_sum_assignment(cost_matrix)
     indices = np.array(indices).transpose()
 
-    matches, unmatched_tracks, unmatched_detections = [], [], []
-    for col, detection_idx in enumerate(detection_indices):
-        if col not in indices[:, 1]:
-            unmatched_detections.append(detection_idx)
-    for row, track_idx in enumerate(track_indices):
-        if row not in indices[:, 0]:
-            unmatched_tracks.append(track_idx)
-    for row, col in indices:
-        track_idx = track_indices[row]
-        detection_idx = detection_indices[col]
-        if cost_matrix[row, col] > max_distance:
-            unmatched_tracks.append(track_idx)
-            unmatched_detections.append(detection_idx)
-        else:
-            matches.append((track_idx, detection_idx))
+    # matches, unmatched_tracks, unmatched_detections = [], [], []
+    # for col, detection_idx in enumerate(detection_indices):
+    #     if col not in indices[:, 1]:
+    #         unmatched_detections.append(detection_idx)
+    # for row, track_idx in enumerate(track_indices):
+    #     if row not in indices[:, 0]:
+    #         unmatched_tracks.append(track_idx)
+    # for row, col in indices:
+    #     track_idx = track_indices[row]
+    #     detection_idx = detection_indices[col]
+    #     if cost_matrix[row, col] > max_distance:
+    #         unmatched_tracks.append(track_idx)
+    #         unmatched_detections.append(detection_idx)
+    #     else:
+    #         matches.append((track_idx, detection_idx))
 
     return matches, unmatched_tracks, unmatched_detections
 
