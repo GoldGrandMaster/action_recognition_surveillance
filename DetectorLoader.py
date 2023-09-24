@@ -87,18 +87,18 @@ class ThreadDetection(object):
         t = Thread(target=self.update, args=(), daemon=True).start()
         return self
 
-    # def update(self):
-    #     while True:
-    #         if self.stopped:
-    #             return
+    def update(self):
+        while True:
+            if self.stopped:
+                return
 
-    #         images = self.dataloader.getitem()
+            images = self.dataloader.getitem()
 
-    #         outputs = self.model.detect(images)
+            outputs = self.model.detect(images)
 
-    #         if self.Q.full():
-    #             time.sleep(2)
-    #         self.Q.put((images, outputs))
+            if self.Q.full():
+                time.sleep(2)
+            self.Q.put((images, outputs))
 
     def getitem(self):
         return self.Q.get()
