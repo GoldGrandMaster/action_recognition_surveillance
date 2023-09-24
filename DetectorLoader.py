@@ -39,37 +39,37 @@ class TinyYOLOv3_onecls(object):
         self.resize_fn = ResizePadding(input_size, input_size)
         self.transf_fn = transforms.ToTensor()
 
-    def detect(self, image, need_resize=True, expand_bb=5):
-        """Feed forward to the model.
-        Args:
-            image: (numpy array) Single RGB image to detect.,
-            need_resize: (bool) Resize to input_size before feed and will return bboxs
-                with scale to image original size.,
-            expand_bb: (int) Expand boundary of the boxs.
-        Returns:
-            (torch.float32) Of each detected object contain a
-                [top, left, bottom, right, bbox_score, class_score, class]
-            return `None` if no detected.
-        """
-        image_size = (self.input_size, self.input_size)
-        if need_resize:
-            image_size = image.shape[:2]
-            image = self.resize_fn(image)
+    # def detect(self, image, need_resize=True, expand_bb=5):
+    #     """Feed forward to the model.
+    #     Args:
+    #         image: (numpy array) Single RGB image to detect.,
+    #         need_resize: (bool) Resize to input_size before feed and will return bboxs
+    #             with scale to image original size.,
+    #         expand_bb: (int) Expand boundary of the boxs.
+    #     Returns:
+    #         (torch.float32) Of each detected object contain a
+    #             [top, left, bottom, right, bbox_score, class_score, class]
+    #         return `None` if no detected.
+    #     """
+    #     image_size = (self.input_size, self.input_size)
+    #     if need_resize:
+    #         image_size = image.shape[:2]
+    #         image = self.resize_fn(image)
 
-        image = self.transf_fn(image)[None, ...]
-        scf = torch.min(self.input_size / torch.FloatTensor([image_size]), 1)[0]
+    #     image = self.transf_fn(image)[None, ...]
+    #     scf = torch.min(self.input_size / torch.FloatTensor([image_size]), 1)[0]
 
-        detected = self.model(image.to(self.device))
-        detected = non_max_suppression(detected, self.conf_thres, self.nms)[0]
-        if detected is not None:
-            detected[:, [0, 2]] -= (self.input_size - scf * image_size[1]) / 2
-            detected[:, [1, 3]] -= (self.input_size - scf * image_size[0]) / 2
-            detected[:, 0:4] /= scf
+    #     detected = self.model(image.to(self.device))
+    #     detected = non_max_suppression(detected, self.conf_thres, self.nms)[0]
+    #     if detected is not None:
+    #         detected[:, [0, 2]] -= (self.input_size - scf * image_size[1]) / 2
+    #         detected[:, [1, 3]] -= (self.input_size - scf * image_size[0]) / 2
+    #         detected[:, 0:4] /= scf
 
-            detected[:, 0:2] = np.maximum(0, detected[:, 0:2] - expand_bb)
-            detected[:, 2:4] = np.minimum(image_size[::-1], detected[:, 2:4] + expand_bb)
+    #         detected[:, 0:2] = np.maximum(0, detected[:, 0:2] - expand_bb)
+    #         detected[:, 2:4] = np.minimum(image_size[::-1], detected[:, 2:4] + expand_bb)
 
-        return detected
+    #     return detected
 
 
 class ThreadDetection(object):
