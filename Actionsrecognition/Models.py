@@ -115,12 +115,12 @@ class st_gcn(nn.Module):
                                           )
         self.relu = nn.ReLU(inplace=True)
 
-    def forward(self, x, A):
-        res = self.residual(x)
-        x = self.gcn(x, A)
-        x = self.tcn(x) + res
+    # def forward(self, x, A):
+    #     res = self.residual(x)
+    #     x = self.gcn(x, A)
+    #     x = self.tcn(x) + res
 
-        return self.relu(x)
+    #     return self.relu(x)
 
 
 class StreamSpatialTemporalGraph(nn.Module):
