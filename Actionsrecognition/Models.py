@@ -91,16 +91,16 @@ class st_gcn(nn.Module):
         padding = ((kernel_size[0] - 1) // 2, 0)
 
         self.gcn = GraphConvolution(in_channels, out_channels, kernel_size[1])
-        self.tcn = nn.Sequential(nn.BatchNorm2d(out_channels),
-                                 nn.ReLU(inplace=True),
-                                 nn.Conv2d(out_channels,
-                                           out_channels,
-                                           (kernel_size[0], 1),
-                                           (stride, 1),
-                                           padding),
-                                 nn.BatchNorm2d(out_channels),
-                                 nn.Dropout(dropout, inplace=True)
-                                 )
+        # self.tcn = nn.Sequential(nn.BatchNorm2d(out_channels),
+        #                          nn.ReLU(inplace=True),
+        #                          nn.Conv2d(out_channels,
+        #                                    out_channels,
+        #                                    (kernel_size[0], 1),
+        #                                    (stride, 1),
+        #                                    padding),
+        #                          nn.BatchNorm2d(out_channels),
+        #                          nn.Dropout(dropout, inplace=True)
+        #                          )
 
         if not residual:
             self.residual = lambda x: 0
