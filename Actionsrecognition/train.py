@@ -80,11 +80,11 @@ def accuracy_batch(y_pred, y_true):
     return (y_pred.argmax(1) == y_true.argmax(1)).mean()
 
 
-# def set_training(model, mode=True):
-#     for p in model.parameters():
-#         p.requires_grad = mode
-#     model.train(mode)
-#     return model
+def set_training(model, mode=True):
+    for p in model.parameters():
+        p.requires_grad = mode
+    model.train(mode)
+    return model
 
 
 if __name__ == '__main__':
