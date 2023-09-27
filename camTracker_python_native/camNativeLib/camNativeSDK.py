@@ -41,22 +41,22 @@ class HKSdkApi:
                     self.add_dll(self.path + file + "/", self.dll_list)
 
     # 载入动态链接库
-    def callCpp(self, func_name, *args):
-        for win_lib in self.dll_list:
-            try:
-                lib = ctypes.cdll.LoadLibrary(win_lib)
-                try:
-                    value = eval("lib.%s" % func_name)(*args)
-                    print("调用的库：" + win_lib)
-                    print("执行成功,返回值：" + str(value))
-                    return value
-                except:
-                    continue
-            except:
-                print("库文件载入失败：" + win_lib)
-                continue
-        print("没有找到接口！")
-        return False
+    # def callCpp(self, func_name, *args):
+    #     for win_lib in self.dll_list:
+    #         try:
+    #             lib = ctypes.cdll.LoadLibrary(win_lib)
+    #             try:
+    #                 value = eval("lib.%s" % func_name)(*args)
+    #                 print("调用的库：" + win_lib)
+    #                 print("执行成功,返回值：" + str(value))
+    #                 return value
+    #             except:
+    #                 continue
+    #         except:
+    #             print("库文件载入失败：" + win_lib)
+    #             continue
+    #     print("没有找到接口！")
+    #     return False
 
     # 摄像头用户登陆
     def NET_DVR_Login_V40(self, sDVRIP, wDVRPort, sUserName, sPassword):
