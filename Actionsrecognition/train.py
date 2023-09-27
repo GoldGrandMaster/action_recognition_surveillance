@@ -188,32 +188,32 @@ if __name__ == '__main__':
     data_file = data_files[1]
     eval_loader, _ = load_dataset([data_file], 32)
 
-    print('Evaluation.')
-    run_loss = 0.0
-    run_accu = 0.0
-    y_preds = []
-    y_trues = []
-    with tqdm(eval_loader, desc='eval') as iterator:
-        for pts, lbs in iterator:
-            mot = pts[:, :2, 1:, :] - pts[:, :2, :-1, :]
-            mot = mot.to(device)
-            pts = pts.to(device)
-            lbs = lbs.to(device)
+    # print('Evaluation.')
+    # run_loss = 0.0
+    # run_accu = 0.0
+    # y_preds = []
+    # y_trues = []
+    # with tqdm(eval_loader, desc='eval') as iterator:
+    #     for pts, lbs in iterator:
+    #         mot = pts[:, :2, 1:, :] - pts[:, :2, :-1, :]
+    #         mot = mot.to(device)
+    #         pts = pts.to(device)
+    #         lbs = lbs.to(device)
 
-            out = model((pts, mot))
-            loss = losser(out, lbs)
+    #         out = model((pts, mot))
+    #         loss = losser(out, lbs)
 
-            run_loss += loss.item()
-            accu = accuracy_batch(out.detach().cpu().numpy(),
-                                  lbs.detach().cpu().numpy())
-            run_accu += accu
+    #         run_loss += loss.item()
+    #         accu = accuracy_batch(out.detach().cpu().numpy(),
+    #                               lbs.detach().cpu().numpy())
+    #         run_accu += accu
 
-            y_preds.extend(out.argmax(1).detach().cpu().numpy())
-            y_trues.extend(lbs.argmax(1).cpu().numpy())
+    #         y_preds.extend(out.argmax(1).detach().cpu().numpy())
+    #         y_trues.extend(lbs.argmax(1).cpu().numpy())
 
-            iterator.set_postfix_str(' loss: {:.4f}, accu: {:.4f}'.format(
-                loss.item(), accu))
-            iterator.update()
+    #         iterator.set_postfix_str(' loss: {:.4f}, accu: {:.4f}'.format(
+    #             loss.item(), accu))
+    #         iterator.update()
 
     run_loss = run_loss / len(iterator)
     run_accu = run_accu / len(iterator)
