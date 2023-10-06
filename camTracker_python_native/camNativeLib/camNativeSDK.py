@@ -114,13 +114,13 @@ class HKSdkApi:
         return lUserID
 
     # 登出摄像头
-    def NET_DVR_Logout(self):
-        res = self.callCpp("NET_DVR_Logout", self.userid)
-        if res == -1:  # -1表示失败，其他值表示返回的用户ID值。
-            error_info = self.callCpp("NET_DVR_GetLastError")
-            logging.error(self.userid + ", 登出错误信息：" + str(error_info))
-        print(f"{self.userid} 登出")
-        return res
+    # def NET_DVR_Logout(self):
+    #     res = self.callCpp("NET_DVR_Logout", self.userid)
+    #     if res == -1:  # -1表示失败，其他值表示返回的用户ID值。
+    #         error_info = self.callCpp("NET_DVR_GetLastError")
+    #         logging.error(self.userid + ", 登出错误信息：" + str(error_info))
+    #     print(f"{self.userid} 登出")
+    #     return res
 
     def NET_DVR_GetDVRConfig(self, lUserID, dwCommand, IChannel, IpOutBuffer, IpBytesReturned):
         IpOutBufferRef = ctypes.byref(IpOutBuffer)
