@@ -99,19 +99,19 @@ class HKSdkApi:
             return False
 
         # c++传递进去的是byte型数据，需要转成byte型传进去，否则会乱码
-        # sDVRIP_bytes = bytes(sDVRIP, "ascii")
-        # sUserName = bytes(sUserName, "ascii")
-        # sPassword = bytes(sPassword, "ascii")
-        # DeviceInfo = LPNET_DVR_DEVICEINFO_V30()
-        # DeviceInfoRef = ctypes.byref(DeviceInfo)
-        # lUserID = self.callCpp("NET_DVR_Login_V30", sDVRIP_bytes, wDVRPort, sUserName, sPassword, DeviceInfoRef)
-        # logging.info(sDVRIP + ", 登录结果：" + str(lUserID))
-        # if lUserID == -1:  # -1表示失败，其他值表示返回的用户ID值。
-        #     error_info = self.callCpp("NET_DVR_GetLastError")
-        #     logging.error(sDVRIP + ", 登录错误信息：" + str(error_info))
-        # self.userid = lUserID
-        # print(self.userid)
-        # return lUserID
+        sDVRIP_bytes = bytes(sDVRIP, "ascii")
+        sUserName = bytes(sUserName, "ascii")
+        sPassword = bytes(sPassword, "ascii")
+        DeviceInfo = LPNET_DVR_DEVICEINFO_V30()
+        DeviceInfoRef = ctypes.byref(DeviceInfo)
+        lUserID = self.callCpp("NET_DVR_Login_V30", sDVRIP_bytes, wDVRPort, sUserName, sPassword, DeviceInfoRef)
+        logging.info(sDVRIP + ", 登录结果：" + str(lUserID))
+        if lUserID == -1:  # -1表示失败，其他值表示返回的用户ID值。
+            error_info = self.callCpp("NET_DVR_GetLastError")
+            logging.error(sDVRIP + ", 登录错误信息：" + str(error_info))
+        self.userid = lUserID
+        print(self.userid)
+        return lUserID
 
     # 登出摄像头
     def NET_DVR_Logout(self):
